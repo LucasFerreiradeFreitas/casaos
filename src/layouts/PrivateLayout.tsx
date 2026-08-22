@@ -1,13 +1,14 @@
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { LayoutDashboard, Home, Package, ShieldCheck, Wrench, LogOut } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { useHome } from '../hooks/useHome'
 
 const navItems = [
-  { to: '/app', label: 'Dashboard', end: true },
-  { to: '/app/minha-casa', label: 'Minha casa', end: false },
-  { to: '/app/bens', label: 'Bens', end: false },
-  { to: '/app/garantias', label: 'Garantias', end: false },
-  { to: '/app/manutencoes', label: 'Manutenções', end: false },
+  { to: '/app', label: 'Dashboard', end: true, icon: LayoutDashboard },
+  { to: '/app/minha-casa', label: 'Minha casa', end: false, icon: Home },
+  { to: '/app/bens', label: 'Bens', end: false, icon: Package },
+  { to: '/app/garantias', label: 'Garantias', end: false, icon: ShieldCheck },
+  { to: '/app/manutencoes', label: 'Manutenções', end: false, icon: Wrench },
 ]
 
 const MINHA_CASA_PATH = '/app/minha-casa'
@@ -27,19 +28,24 @@ export function PrivateLayout() {
       <aside className="sidebar">
         <span className="brand">CasaOS</span>
         <nav>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          {navItems.map((item) => {
+            const Icon = item.icon
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
+              >
+                <Icon size={18} strokeWidth={1.75} aria-hidden="true" />
+                <span>{item.label}</span>
+              </NavLink>
+            )
+          })}
         </nav>
         <button type="button" className="btn-ghost" onClick={signOut}>
-          Sair
+          <LogOut size={16} strokeWidth={1.75} aria-hidden="true" />
+          <span>Sair</span>
         </button>
       </aside>
       <main className="content">
