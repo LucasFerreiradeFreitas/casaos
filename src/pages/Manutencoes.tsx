@@ -43,6 +43,7 @@ export function Manutencoes() {
   const [editForm, setEditForm] = useState<MaintenanceForm>(emptyForm)
   const [editError, setEditError] = useState<string | null>(null)
   const [savingEdit, setSavingEdit] = useState(false)
+  const [savedId, setSavedId] = useState<string | null>(null)
 
   const itemsById = useMemo(() => {
     const map = new Map<string, Item>()
@@ -103,6 +104,7 @@ export function Manutencoes() {
   function startEdit(maintenance: Maintenance) {
     setEditingId(maintenance.id)
     setEditError(null)
+    setSavedId(null)
     setEditForm(toEditForm(maintenance))
   }
 
@@ -127,6 +129,7 @@ export function Manutencoes() {
         due_date: editForm.due_date ? editForm.due_date : null,
       })
       setEditingId(null)
+      setSavedId(id)
       await load(home.id)
     } catch {
       setEditError('Não foi possível salvar as alterações.')
@@ -299,6 +302,7 @@ export function Manutencoes() {
                     <button type="button" className="btn-link danger" onClick={() => handleDelete(maintenance.id)}>
                       Excluir
                     </button>
+                    {savedId === maintenance.id && <span className="saved-inline">Salvo.</span>}
                   </td>
                 </tr>
               )

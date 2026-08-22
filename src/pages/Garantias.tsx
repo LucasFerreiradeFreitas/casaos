@@ -45,6 +45,7 @@ export function Garantias() {
   const [editForm, setEditForm] = useState<WarrantyForm>(emptyForm)
   const [editError, setEditError] = useState<string | null>(null)
   const [savingEdit, setSavingEdit] = useState(false)
+  const [savedId, setSavedId] = useState<string | null>(null)
 
   const itemsById = useMemo(() => {
     const map = new Map<string, Item>()
@@ -106,6 +107,7 @@ export function Garantias() {
   function startEdit(warranty: Warranty) {
     setEditingId(warranty.id)
     setEditError(null)
+    setSavedId(null)
     setEditForm(toEditForm(warranty))
   }
 
@@ -131,6 +133,7 @@ export function Garantias() {
         notes: editForm.notes.trim() ? editForm.notes.trim() : null,
       })
       setEditingId(null)
+      setSavedId(id)
       await load(home.id)
     } catch {
       setEditError('Não foi possível salvar as alterações.')
@@ -298,6 +301,7 @@ export function Garantias() {
                     <button type="button" className="btn-link danger" onClick={() => handleDelete(warranty.id)}>
                       Excluir
                     </button>
+                    {savedId === warranty.id && <span className="saved-inline">Salvo.</span>}
                   </td>
                 </tr>
               ),

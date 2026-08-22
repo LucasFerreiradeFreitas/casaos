@@ -38,6 +38,7 @@ export function Bens() {
   const [editForm, setEditForm] = useState<ItemInput>(emptyForm)
   const [editError, setEditError] = useState<string | null>(null)
   const [savingEdit, setSavingEdit] = useState(false)
+  const [savedId, setSavedId] = useState<string | null>(null)
 
   useEffect(() => {
     if (home) load(home.id)
@@ -82,6 +83,7 @@ export function Bens() {
   function startEdit(item: Item) {
     setEditingId(item.id)
     setEditError(null)
+    setSavedId(null)
     setEditForm({
       name: item.name,
       category: item.category ?? '',
@@ -108,6 +110,7 @@ export function Bens() {
     try {
       await updateItem(id, normalizeInput(editForm))
       setEditingId(null)
+      setSavedId(id)
       await load(home.id)
     } catch {
       setEditError('Não foi possível salvar as alterações.')
@@ -270,6 +273,7 @@ export function Bens() {
                     <button type="button" className="btn-link danger" onClick={() => handleDelete(item.id)}>
                       Excluir
                     </button>
+                    {savedId === item.id && <span className="saved-inline">Salvo.</span>}
                   </td>
                 </tr>
               ),
