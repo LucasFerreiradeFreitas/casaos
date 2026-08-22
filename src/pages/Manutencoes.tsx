@@ -228,7 +228,8 @@ export function Manutencoes() {
       {items.length > 0 && maintenances.length === 0 && <p>Nenhuma manutenção cadastrada ainda.</p>}
 
       {maintenances.length > 0 && (
-        <table className="data-table">
+        <div className="table-scroll">
+          <table className="data-table">
           <thead>
             <tr>
               <th>Bem</th>
@@ -304,6 +305,7 @@ export function Manutencoes() {
             })}
           </tbody>
         </table>
+        </div>
       )}
 
       {editError && (

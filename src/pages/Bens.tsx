@@ -198,7 +198,8 @@ export function Bens() {
       ) : items.length === 0 ? (
         <p>Nenhum bem cadastrado ainda.</p>
       ) : (
-        <table className="data-table">
+        <div className="table-scroll">
+          <table className="data-table">
           <thead>
             <tr>
               <th>Nome</th>
@@ -275,6 +276,7 @@ export function Bens() {
             )}
           </tbody>
         </table>
+        </div>
       )}
 
       {editError && (

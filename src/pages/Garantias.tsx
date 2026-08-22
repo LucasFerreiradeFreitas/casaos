@@ -232,7 +232,8 @@ export function Garantias() {
       {items.length > 0 && warranties.length === 0 && <p>Nenhuma garantia cadastrada ainda.</p>}
 
       {warranties.length > 0 && (
-        <table className="data-table">
+        <div className="table-scroll">
+          <table className="data-table">
           <thead>
             <tr>
               <th>Bem</th>
@@ -303,6 +304,7 @@ export function Garantias() {
             )}
           </tbody>
         </table>
+        </div>
       )}
 
       {editError && (

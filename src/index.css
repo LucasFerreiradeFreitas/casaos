@@ -29,6 +29,11 @@ body,
   height: 100%;
 }
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -446,4 +451,76 @@ a:hover {
   flex-direction: column;
   gap: var(--space-1);
   font-size: 14px;
+}
+
+/* ---------- Rolagem horizontal para tabelas em telas estreitas ---------- */
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+/* ---------- Responsividade ---------- */
+
+@media (max-width: 720px) {
+  .public-header,
+  .public-layout main {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .private-layout {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sidebar nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: var(--space-2);
+    flex: none;
+    min-width: 0;
+  }
+
+  .nav-link {
+    white-space: nowrap;
+  }
+
+  .sidebar .btn-ghost {
+    align-self: flex-start;
+  }
+
+  .content {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  .inline-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .inline-form input,
+  .inline-form select {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .stats-row {
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .landing-actions {
+    flex-wrap: wrap;
+  }
 }
