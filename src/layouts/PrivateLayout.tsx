@@ -1,5 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { LayoutDashboard, Home, Package, ShieldCheck, Wrench, LogOut } from 'lucide-react'
+import { LayoutDashboard, Home, Package, ShieldCheck, Wrench, LogOut, Menu, X } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { useHome } from '../hooks/useHome'
 
@@ -17,16 +18,60 @@ export function PrivateLayout() {
   const { signOut } = useAuth()
   const { home, loading } = useHome()
   const location = useLocation()
+  const [menuOpen, setMenuOpen] = useState(false)
 
-  // Onboarding: sem casa cadastrada, qualquer área privada leva para
-  // criar uma primeiro. É aqui que "criar sua casa" vira pré-requisito
-  // para usar o resto do sistema, sem precisar de um assistente à parte.
   const needsOnboarding = !loading && !home && location.pathname !== MINHA_CASA_PATH
+
+  // Fecha a gaveta sempre que a rota muda (ex: usuário tocou em um link).
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [location.pathname])
+
+  // Fecha com Esc, um comportamento esperado de qualquer painel sobreposto.
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
 
   return (
     <div className="private-layout">
-      <aside className="sidebar">
+      <header className="mobile-topbar">
         <span className="brand">CasaOS</span>
+        <button
+          type="button"
+          className="menu-toggle"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Abrir menu"
+          aria-expanded={menuOpen}
+        >
+          <Menu size={22} strokeWidth={1.75} />
+        </button>
+      </header>
+
+      {menuOpen && (
+        <button
+          type="button"
+          className="sidebar-backdrop"
+          aria-label="Fechar menu"
+          onClick={() => setMenuOpen(false)}
+        />
+      )}
+
+      <aside className={menuOpen ? 'sidebar sidebar-open' : 'sidebar'}>
+        <div className="sidebar-header">
+          <span className="brand">CasaOS</span>
+          <button
+            type="button"
+            className="menu-toggle sidebar-close"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Fechar menu"
+          >
+            <X size={20} strokeWidth={1.75} />
+          </button>
+        </div>
         <nav>
           {navItems.map((item) => {
             const Icon = item.icon
@@ -48,6 +93,7 @@ export function PrivateLayout() {
           <span>Sair</span>
         </button>
       </aside>
+
       <main className="content">
         {needsOnboarding ? <Navigate to={MINHA_CASA_PATH} replace /> : <Outlet />}
       </main>

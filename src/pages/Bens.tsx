@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { useHome } from '../hooks/useHome'
 import { createItem, deleteItem, listItems, updateItem, type ItemInput } from '../services/items'
 import type { Item } from '../types/item'
@@ -267,6 +268,9 @@ export function Bens() {
                   <td>{formatDate(item.purchase_date)}</td>
                   <td>{formatCurrency(item.value)}</td>
                   <td className="actions">
+                    <Link to={`/app/bens/${item.id}`} className="btn-link">
+                      Documentos
+                    </Link>
                     <button type="button" className="btn-link" onClick={() => startEdit(item)}>
                       Editar
                     </button>

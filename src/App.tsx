@@ -13,6 +13,7 @@ import { MinhaCasa } from './pages/MinhaCasa'
 import { Bens } from './pages/Bens'
 import { Garantias } from './pages/Garantias'
 import { Manutencoes } from './pages/Manutencoes'
+import { ItemDocuments } from './pages/ItemDocuments'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="minha-casa" element={<MinhaCasa />} />
         <Route path="bens" element={<Bens />} />
+        <Route path="bens/:itemId" element={<ItemDocuments />} />
         <Route path="garantias" element={<Garantias />} />
         <Route path="manutencoes" element={<Manutencoes />} />
       </Route>

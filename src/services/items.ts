@@ -21,6 +21,16 @@ export async function listItems(homeId: string): Promise<Item[]> {
   return data
 }
 
+// Se o item não existir OU não pertencer ao usuário logado, a RLS
+// simplesmente não retorna a linha — não é possível diferenciar os
+// dois casos, o que é o comportamento correto (regra 6 do projeto).
+export async function getItem(id: string): Promise<Item | null> {
+  const { data, error } = await supabase.from('items').select(ITEM_FIELDS).eq('id', id).maybeSingle()
+
+  if (error) throw error
+  return data
+}
+
 export async function createItem(homeId: string, input: ItemInput): Promise<Item> {
   const { data, error } = await supabase
     .from('items')
