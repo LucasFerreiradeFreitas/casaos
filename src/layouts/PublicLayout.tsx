@@ -7,6 +7,9 @@ export function PublicLayout() {
         <Link to="/" className="brand">
           CasaOS
         </Link>
+        <Link to="/login" className="header-login-link">
+          Entrar
+        </Link>
       </header>
       <main>
         <Outlet />
