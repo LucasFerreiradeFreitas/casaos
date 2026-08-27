@@ -69,7 +69,7 @@ export function Dashboard() {
   return (
     <section>
       <h1>Dashboard</h1>
-      <p>
+      <p className="page-subtitle">
         {home?.name} — logado como {user?.email}.
       </p>
 

@@ -162,6 +162,9 @@ export function Garantias() {
   return (
     <section>
       <h1>Garantias</h1>
+      <p className="page-subtitle">
+        Saiba até quando cada garantia vale, sem procurar nota fiscal perdida.
+      </p>
 
       {items.length === 0 ? (
         <p>

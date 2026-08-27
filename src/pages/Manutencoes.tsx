@@ -170,6 +170,9 @@ export function Manutencoes() {
   return (
     <section>
       <h1>Manutenções</h1>
+      <p className="page-subtitle">
+        Não perca a hora de cuidar do que precisa de atenção.
+      </p>
 
       {items.length === 0 ? (
         <p>

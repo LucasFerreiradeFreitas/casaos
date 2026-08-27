@@ -136,6 +136,9 @@ export function Bens() {
   return (
     <section>
       <h1>Bens</h1>
+      <p className="page-subtitle">
+        Anote o que você tem, quando comprou e quanto custou.
+      </p>
 
       <form onSubmit={handleCreate} className="inline-form">
         <div className="field">
