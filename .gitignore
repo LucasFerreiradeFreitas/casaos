@@ -6,5 +6,9 @@ dist-ssr
 .env
 .env.local
 
+backups/
+*.csv
+*.sql
+
 .DS_Store
 *.tsbuildinfo
